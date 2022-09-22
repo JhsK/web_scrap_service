@@ -1,6 +1,13 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['jsx-conditionals', '@typescript-eslint', 'react', 'react-hooks', 'jsx-a11y', 'prettier'],
+  plugins: [
+    'jsx-conditionals',
+    '@typescript-eslint',
+    'react',
+    'react-hooks',
+    'jsx-a11y',
+    'prettier',
+  ],
   extends: [
     'airbnb', // airbnb 코드 스타일 사용시
     'prettier',
@@ -8,14 +15,15 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:jsx-a11y/recommended',
   ],
-  globals: { // 전역 객체에 접근하는 경우 ts 는 오류를 내기 때문에 사용하는 전역 객체를 whitelist 해주세요
+  globals: {
+    // 전역 객체에 접근하는 경우 ts 는 오류를 내기 때문에 사용하는 전역 객체를 whitelist 해주세요
     i18next: true,
   },
   rules: {
     'import/order': 'error', // import 순서로 발생할 수 있는 오류 꼭 사용해주세요!
     'arrow-body-style': ['error', 'as-needed'],
     'import/extensions': 'off',
-    'import/prefer-default-export': 'off', // 
+    'import/prefer-default-export': 'off', //
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'react/button-has-type': 'off',
@@ -48,7 +56,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/no-explicit-any': 'off', // 명시적 any 타입 선언을 오류로 할건지 인데 저희는 off 해두고 타입 정리 싹 한 뒤에 error 로 잡을 예정 입니다. 취향에 따라 설정 해주세요
-    '@typescript-eslint/no-empty-function': 'off', 
+    '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
