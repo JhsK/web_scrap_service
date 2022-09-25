@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../header';
 import { LayoutWrapper } from './style';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Sidebar from '../sidebar';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,7 +11,8 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <LayoutWrapper>
-      <Header />
+      {/* <Header /> */}
+      <Sidebar />
       {children}
     </LayoutWrapper>
   );

@@ -1,10 +1,16 @@
 import styled from '@emotion/styled';
 
+export const ErrorText = styled.span`
+  font-size: 0.8rem;
+  color: red;
+`;
+
 export const SidebarWrapper = styled.div`
   width: 300px;
-  height: 600px;
+  height: 800px;
   background-color: #fbfbfa;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 12px 0 0 12px;
   /* padding: 0 1rem; */
 `;
 
@@ -26,21 +32,29 @@ export const UserNameWrapper = styled.div`
 
   &:hover {
     background-color: #ebebea;
+    border-radius: 12px 0 0 0;
     .icon {
       visibility: visible;
     }
   }
 `;
 
+export const RootDirectory = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  opacity: 0.4;
+  margin-bottom: 0.5rem;
+
+  div:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+`;
+
 export const DirectoryWrapper = styled.div`
   padding: 0 1rem;
-
-  .title {
-    font-size: 0.7rem;
-    opacity: 0.4;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
 `;
 
 export const Directory = styled.div`
