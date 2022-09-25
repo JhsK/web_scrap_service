@@ -39,7 +39,7 @@ export const UserNameWrapper = styled.div`
   }
 `;
 
-export const RootDirectory = styled.div`
+export const RootDirectoryAdd = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;

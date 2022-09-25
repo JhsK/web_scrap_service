@@ -14,16 +14,21 @@ import {
   DirectoryWrapper,
   ErrorText,
   Input,
-  RootDirectory,
+  RootDirectoryAdd,
   SidebarWrapper,
   UserNameWrapper,
 } from './style';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { DirecotryObjState, rootAdd } from '../../store/directory/directorySlice';
 
 interface DirectoryInput {
   directoryName: string;
 }
 
 function Sidebar() {
+  const directroy = useAppSelector((state) => state.directory);
+  const dispatch = useAppDispatch();
+
   const [test, setTest] = useState(false);
   const [name, setName] = useState('개발');
   const [rename, setRename] = useState(false);
@@ -34,13 +39,19 @@ function Sidebar() {
     handleSubmit,
     formState: { errors },
   } = useForm<DirectoryInput>();
+  console.log(directroy);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
   const onSubmitDirectory = (data: DirectoryInput) => {
-    console.log(data);
+    const addDirectory: DirecotryObjState = {
+      type: 'root',
+      name: data.directoryName,
+    };
+    setModalShow(false);
+    dispatch(rootAdd(addDirectory));
   };
 
   return (
@@ -76,14 +87,31 @@ function Sidebar() {
           </div>
         </UserNameWrapper>
         <DirectoryWrapper>
-          <RootDirectory>
+          <RootDirectoryAdd>
             <span>스크랩 저장 폴더</span>
             <div onClick={() => setModalShow(true)}>
               <AiOutlinePlus size={12} />
             </div>
-          </RootDirectory>
-          <Directory>
-            <DirectoryLeft>
+          </RootDirectoryAdd>
+          {directroy.directoryList.map((root) => (
+            <Directory>
+              <DirectoryLeft>
+                <DirectoryIcon onClick={() => setTest((prev) => !prev)}>
+                  {test ? <BsFillCaretDownFill size={12} /> : <BsFillCaretRightFill size={12} />}
+                </DirectoryIcon>
+                <span>{root.name}</span>
+              </DirectoryLeft>
+              <DirectoryRight>
+                <div onClick={() => setRename((prev) => !prev)}>
+                  <BiPencil />
+                </div>
+                <div>
+                  <AiOutlinePlus />
+                </div>
+              </DirectoryRight>
+            </Directory>
+          ))}
+          {/* <DirectoryLeft>
               <DirectoryIcon onClick={() => setTest((prev) => !prev)}>
                 {test ? <BsFillCaretDownFill size={12} /> : <BsFillCaretRightFill size={12} />}
               </DirectoryIcon>
@@ -100,8 +128,7 @@ function Sidebar() {
               <div>
                 <AiOutlinePlus />
               </div>
-            </DirectoryRight>
-          </Directory>
+            </DirectoryRight> */}
         </DirectoryWrapper>
       </SidebarWrapper>
     </>
