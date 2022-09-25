@@ -41,6 +41,8 @@ module.exports = {
     'no-throw-literal': 'off',
     'no-use-before-define': 'off',
     'no-shadow': 'off',
+    'react/function-component-definition': 'off',
+    'react/react-in-jsx-scope': 'off',
     'prettier/prettier': [
       'error',
       {
