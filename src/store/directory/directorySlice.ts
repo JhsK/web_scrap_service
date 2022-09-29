@@ -4,48 +4,36 @@ export interface DirecotryObjState {
   id: string;
   type: 'root';
   name: string;
-  subBasic?: {
+  subDirectory?: {
     type: 'sub';
     name: string;
   };
 }
 
-// export interface DirectoryState {
-//   [key: string]: DirecotryObjState;
-// }
+type Directory = Array<DirecotryObjState>;
 
-export interface DirectoryList {
-  directoryList: Array<DirecotryObjState>;
-}
-
-const initialState: DirectoryList = {
-  directoryList: [
-    {
-      id: '1',
-      type: 'root',
-      name: '루트 기본',
-    },
-  ],
-};
+const initialState: Directory = [
+  {
+    id: '1',
+    type: 'root',
+    name: '루트 기본',
+  },
+];
 
 export const directorySlice = createSlice({
   name: 'directory',
   initialState,
   reducers: {
     rootAdd: (state, action: PayloadAction<DirecotryObjState>) => {
-      state.directoryList.push(action.payload);
+      state.push(action.payload);
     },
 
-    rootRename: (state, action: PayloadAction<{ id: string; name: string }>) => {
-      state.directoryList.forEach((list) => {
-        if (list.id === action.payload.id) {
-          list.name = action.payload.name;
-        }
-      });
+    rootRename: (state, action: PayloadAction<{ index: number; name: string }>) => {
+      state[action.payload.index].name = action.payload.name;
     },
   },
 });
 
 export const { rootAdd, rootRename } = directorySlice.actions;
-export const selectDirectory = (state: DirectoryList) => state;
+export const selectDirectory = (state: Directory) => state;
 export default directorySlice.reducer;

@@ -1,37 +1,31 @@
 import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BiPencil } from 'react-icons/bi';
-import { v4 as uuidv4 } from 'uuid';
-import { BsFillCaretDownFill, BsFillCaretRightFill } from 'react-icons/bs';
-import Modal from 'react-bootstrap/Modal';
-import { Button } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
+
 import { useForm } from 'react-hook-form';
+import { BsFillCaretDownFill, BsFillCaretRightFill } from 'react-icons/bs';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { rootRename } from '../../store/directory/directorySlice';
 import {
   Directory,
   DirectoryIcon,
   DirectoryLeft,
   DirectoryRight,
   DirectoryWrapper,
-  ErrorText,
   Input,
   RootDirectoryAdd,
   SidebarWrapper,
   UserNameWrapper,
 } from './style';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { DirecotryObjState, rootAdd, rootRename } from '../../store/directory/directorySlice';
-
-interface DirectoryInput {
-  directoryName: string;
-}
+import { DirectoryInput } from './types';
+import DirectoryModal from './DirectoryModal';
 
 function Sidebar() {
   const directroy = useAppSelector((state) => state.directory);
   const dispatch = useAppDispatch();
 
-  const [test, setTest] = useState(false);
-  const [rename, setRename] = useState(false);
+  const [toggle, setToggle] = useState<number[]>([]);
+  const [rename, setRename] = useState<number[]>([]);
   const [modalShow, setModalShow] = useState(false);
 
   const {
@@ -39,47 +33,36 @@ function Sidebar() {
     handleSubmit,
     formState: { errors },
   } = useForm<DirectoryInput>();
-  console.log(directroy);
 
-  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
-    dispatch(rootRename({ name: e.target.value, id }));
+  const onChangeNameDispatch = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    dispatch(rootRename({ name: e.target.value, index }));
   };
 
-  const onSubmitDirectory = (data: DirectoryInput) => {
-    const addDirectory: DirecotryObjState = {
-      id: uuidv4(),
-      type: 'root',
-      name: data.directoryName,
-    };
-    setModalShow(false);
-    dispatch(rootAdd(addDirectory));
+  const onClickToggle = (index: number) => {
+    if (toggle.includes(index)) {
+      setToggle((prev) => prev.filter((_, i) => i !== index));
+    } else {
+      setToggle((prev) => [...prev, index]);
+    }
+  };
+
+  const onClickRename = (index: number) => {
+    if (rename.includes(index)) {
+      setRename((prev) => prev.filter((_, i) => i !== index));
+    } else {
+      setRename((prev) => [...prev, index]);
+    }
   };
 
   return (
     <>
-      <Modal show={modalShow} onHide={() => setModalShow(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>루트 폴더 생성</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Control
-            type="text"
-            placeholder="폴더명 입력"
-            {...register('directoryName', {
-              required: true,
-            })}
-          />
-          {errors.directoryName && <ErrorText>폴더명을 입력해주세요</ErrorText>}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setModalShow(false)}>
-            닫기
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(onSubmitDirectory)}>
-            추가
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DirectoryModal
+        modal={modalShow}
+        setModal={setModalShow}
+        register={register}
+        errors={errors}
+        handleSubmit={handleSubmit}
+      />
       <SidebarWrapper>
         <UserNameWrapper>
           <span>임성규님</span>
@@ -94,20 +77,28 @@ function Sidebar() {
               <AiOutlinePlus size={12} />
             </div>
           </RootDirectoryAdd>
-          {directroy.directoryList.map((root) => (
+          {directroy.map((root, index) => (
             <Directory key={root.id}>
               <DirectoryLeft>
-                <DirectoryIcon onClick={() => setTest((prev) => !prev)}>
-                  {test ? <BsFillCaretDownFill size={12} /> : <BsFillCaretRightFill size={12} />}
+                <DirectoryIcon onClick={() => onClickToggle(index)}>
+                  {toggle.indexOf(index) ? (
+                    <BsFillCaretRightFill size={12} />
+                  ) : (
+                    <BsFillCaretDownFill size={12} />
+                  )}
                 </DirectoryIcon>
-                {rename ? (
-                  <Input type="text" value={root.name} onChange={(e) => onChangeName(e, root.id)} />
+                {rename.includes(index) ? (
+                  <Input
+                    type="text"
+                    value={root.name}
+                    onChange={(e) => onChangeNameDispatch(e, index)}
+                  />
                 ) : (
                   <span>{root.name}</span>
                 )}
               </DirectoryLeft>
               <DirectoryRight>
-                <div onClick={() => setRename((prev) => !prev)}>
+                <div onClick={() => onClickRename(index)}>
                   <BiPencil />
                 </div>
                 <div>
