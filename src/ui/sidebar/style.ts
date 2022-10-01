@@ -57,7 +57,12 @@ export const DirectoryWrapper = styled.div`
   padding: 0 1rem;
 `;
 
-export const Directory = styled.div`
+export const RootAndSubWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const RootDirectory = styled.div`
   padding: 0.5rem;
   font-size: 0.9rem;
   display: flex;
@@ -68,6 +73,10 @@ export const Directory = styled.div`
   &:hover {
     background-color: #ebebea;
   }
+`;
+
+export const SubDirectory = styled(RootDirectory)`
+  padding-left: 1rem;
 `;
 
 export const Input = styled.input`
