@@ -55,6 +55,7 @@ const DirectoryModal = ({
       id: uuidv4(),
       type: 'sub',
       name: data.directoryName,
+      posts: [],
     };
     reset({ directoryName: '' });
     setModal((prev) => ({ ...prev, show: false }));

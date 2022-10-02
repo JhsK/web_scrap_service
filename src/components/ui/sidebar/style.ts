@@ -6,6 +6,7 @@ export const ErrorText = styled.span`
 `;
 
 export const SidebarWrapper = styled.div`
+  min-width: 300px;
   width: 300px;
   height: 800px;
   background-color: #fbfbfa;

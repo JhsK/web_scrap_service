@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { number, string } from 'prop-types';
 
 export interface DirecotryObjState {
   id: string;
@@ -11,6 +12,7 @@ export interface SubDirectoryObj {
   id: string;
   type: 'sub';
   name: string;
+  posts: string[];
 }
 
 type Directory = Array<DirecotryObjState>;
@@ -30,14 +32,7 @@ const initialState: () => Directory = () => {
   ];
 };
 
-// const initialState: Directory = [
-//   {
-//     id: '1',
-//     type: 'root',
-//     name: '루트 기본',
-//     subDirectory: [],
-//   },
-// ];
+console.log(initialState());
 
 export const directorySlice = createSlice({
   name: 'directory',
@@ -62,9 +57,18 @@ export const directorySlice = createSlice({
       state[action.payload.rootIndex].subDirectory[action.payload.subIndex].name =
         action.payload.name;
     },
+
+    postAdd: (
+      state,
+      action: PayloadAction<{ rootIndex: number; subIndex: number; post: string }>
+    ) => {
+      state[action.payload.rootIndex].subDirectory[action.payload.subIndex].posts.push(
+        action.payload.post
+      );
+    },
   },
 });
 
-export const { rootAdd, rootRename, subAdd, subRename } = directorySlice.actions;
+export const { rootAdd, rootRename, subAdd, subRename, postAdd } = directorySlice.actions;
 export const selectDirectory = (state: Directory) => state;
 export default directorySlice.reducer;

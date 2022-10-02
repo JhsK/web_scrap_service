@@ -4,6 +4,7 @@ import { BiPencil } from 'react-icons/bi';
 
 import { useForm } from 'react-hook-form';
 import { BsDot, BsFillCaretDownFill, BsFillCaretRightFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store';
 import { rootRename, subRename } from '../../../store/directory/directorySlice';
 import DirectoryModal from './DirectoryModal';
@@ -23,6 +24,7 @@ import { DirectoryInput, ModalShow } from './types';
 function Sidebar() {
   const directroy = useAppSelector((state) => state.directory);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [toggle, setToggle] = useState<number[]>([]);
   const [rootRenameState, setRootRenameState] = useState<number[]>([]);
@@ -92,7 +94,7 @@ function Sidebar() {
       />
       <SidebarWrapper>
         <UserNameWrapper>
-          <span>임성규님</span>
+          <span>테스트님</span>
           <div className="icon">
             <BiPencil />
           </div>
@@ -122,7 +124,7 @@ function Sidebar() {
                       onChange={(e) => onChangeRootNameDispatch(e, index)}
                     />
                   ) : (
-                    <span>{root.name}</span>
+                    <span onClick={() => navigate('/')}>{root.name}</span>
                   )}
                 </div>
                 <div className="directoryRight">
@@ -136,7 +138,10 @@ function Sidebar() {
               </RootDirectory>
               {toggle.includes(index) &&
                 root.subDirectory?.map((sub, subIndex) => (
-                  <SubDirectory key={sub.id}>
+                  <SubDirectory
+                    key={sub.id}
+                    onClick={() => navigate(`/${sub.id}?rootIndex=${index}`)}
+                  >
                     <div className="directoryLeft">
                       <DirectoryIcon>
                         <BsDot size={15} />

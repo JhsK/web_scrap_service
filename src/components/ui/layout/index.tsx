@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../header';
-import { LayoutWrapper } from './style';
+import { BodyWrapper, LayoutWrapper } from './style';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Sidebar from '../sidebar';
 
@@ -11,8 +11,10 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <LayoutWrapper>
-      <Sidebar />
-      {children}
+      <BodyWrapper>
+        <Sidebar />
+        {children}
+      </BodyWrapper>
     </LayoutWrapper>
   );
 }
