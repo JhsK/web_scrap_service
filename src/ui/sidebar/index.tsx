@@ -1,26 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BiPencil } from 'react-icons/bi';
 
 import { useForm } from 'react-hook-form';
-import { BsFillCaretDownFill, BsFillCaretRightFill, BsDot } from 'react-icons/bs';
+import { BsDot, BsFillCaretDownFill, BsFillCaretRightFill } from 'react-icons/bs';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { rootRename, subRename } from '../../store/directory/directorySlice';
+import DirectoryModal from './DirectoryModal';
 import {
-  RootDirectory,
   DirectoryIcon,
-  DirectoryLeft,
-  DirectoryRight,
   DirectoryWrapper,
   Input,
+  RootAndSubWrapper,
+  RootDirectory,
   RootDirectoryAdd,
   SidebarWrapper,
-  UserNameWrapper,
-  RootAndSubWrapper,
   SubDirectory,
+  UserNameWrapper,
 } from './style';
 import { DirectoryInput, ModalShow } from './types';
-import DirectoryModal from './DirectoryModal';
 
 function Sidebar() {
   const directroy = useAppSelector((state) => state.directory);
@@ -31,6 +29,15 @@ function Sidebar() {
   const [subRenameState, setSubRenameState] = useState('');
   const [modalShow, setModalShow] = useState<ModalShow>({ show: false, type: 'root' });
   const [rootIndex, setRootIndex] = useState(-1); // 모달을 이용한 디렉터리 생성 시 사용되는 현재 루트 인텍스 상태값
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('directory', JSON.stringify(directroy));
+      console.log('사용자의 디렉터리를 로컬에 저장하였습니다.');
+    } catch (err) {
+      console.log('사용자의 디렉터리를 로컬 저장에 실패하였습니다.');
+    }
+  }, [directroy]);
 
   const {
     register,
@@ -100,7 +107,7 @@ function Sidebar() {
           {directroy.map((root, index) => (
             <RootAndSubWrapper>
               <RootDirectory key={root.id}>
-                <DirectoryLeft>
+                <div className="directoryLeft">
                   <DirectoryIcon onClick={() => onClickToggle(index)}>
                     {toggle.indexOf(index) ? (
                       <BsFillCaretRightFill size={12} />
@@ -117,20 +124,20 @@ function Sidebar() {
                   ) : (
                     <span>{root.name}</span>
                   )}
-                </DirectoryLeft>
-                <DirectoryRight>
+                </div>
+                <div className="directoryRight">
                   <div onClick={() => onClickRootRename(index)}>
                     <BiPencil />
                   </div>
                   <div onClick={() => onClickSubAddModal(index)}>
                     <AiOutlinePlus />
                   </div>
-                </DirectoryRight>
+                </div>
               </RootDirectory>
               {toggle.includes(index) &&
                 root.subDirectory?.map((sub, subIndex) => (
                   <SubDirectory key={sub.id}>
-                    <DirectoryLeft>
+                    <div className="directoryLeft">
                       <DirectoryIcon>
                         <BsDot size={15} />
                       </DirectoryIcon>
@@ -143,15 +150,15 @@ function Sidebar() {
                       ) : (
                         <span>{sub.name}</span>
                       )}
-                    </DirectoryLeft>
-                    <DirectoryRight>
+                    </div>
+                    <div className="directoryRight">
                       <div onClick={() => setSubRenameState(sub.id)}>
                         <BiPencil />
                       </div>
                       <div onClick={() => onClickSubAddModal(index)}>
                         <AiOutlinePlus />
                       </div>
-                    </DirectoryRight>
+                    </div>
                   </SubDirectory>
                 ))}
             </RootAndSubWrapper>

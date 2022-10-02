@@ -15,14 +15,29 @@ export interface SubDirectoryObj {
 
 type Directory = Array<DirecotryObjState>;
 
-const initialState: Directory = [
-  {
-    id: '1',
-    type: 'root',
-    name: '루트 기본',
-    subDirectory: [],
-  },
-];
+const initialState: () => Directory = () => {
+  const savedDirectory = localStorage.getItem('directory');
+  if (savedDirectory) {
+    return JSON.parse(savedDirectory);
+  }
+  return [
+    {
+      id: '1',
+      type: 'root',
+      name: '루트 기본',
+      subDirectory: [],
+    },
+  ];
+};
+
+// const initialState: Directory = [
+//   {
+//     id: '1',
+//     type: 'root',
+//     name: '루트 기본',
+//     subDirectory: [],
+//   },
+// ];
 
 export const directorySlice = createSlice({
   name: 'directory',

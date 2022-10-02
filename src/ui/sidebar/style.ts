@@ -72,6 +72,23 @@ export const RootDirectory = styled.div`
 
   &:hover {
     background-color: #ebebea;
+
+    .directoryRight {
+      visibility: visible;
+    }
+  }
+
+  .directoryLeft {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .directoryRight {
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
 `;
 
@@ -85,16 +102,4 @@ export const Input = styled.input`
 
 export const DirectoryIcon = styled.div`
   opacity: 0.5;
-`;
-
-export const DirectoryLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-`;
-
-export const DirectoryRight = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
 `;
