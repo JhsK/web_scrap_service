@@ -4,8 +4,8 @@ import { BiPencil } from 'react-icons/bi';
 
 import { useForm } from 'react-hook-form';
 import { BsDot, BsFillCaretDownFill, BsFillCaretRightFill } from 'react-icons/bs';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { rootRename, subRename } from '../../store/directory/directorySlice';
+import { useAppDispatch, useAppSelector } from '../../../store';
+import { rootRename, subRename } from '../../../store/directory/directorySlice';
 import DirectoryModal from './DirectoryModal';
 import {
   DirectoryIcon,

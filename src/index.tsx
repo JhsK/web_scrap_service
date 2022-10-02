@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './components/pages';
+import Home from './pages';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store';

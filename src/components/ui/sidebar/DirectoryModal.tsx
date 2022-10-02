@@ -14,8 +14,8 @@ import {
   rootAdd,
   subAdd,
   SubDirectoryObj,
-} from '../../store/directory/directorySlice';
-import { useAppDispatch } from '../../store';
+} from '../../../store/directory/directorySlice';
+import { useAppDispatch } from '../../../store';
 
 interface RootModalProps {
   modal: ModalShow;

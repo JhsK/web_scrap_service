@@ -11,7 +11,6 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <LayoutWrapper>
-      {/* <Header /> */}
       <Sidebar />
       {children}
     </LayoutWrapper>
