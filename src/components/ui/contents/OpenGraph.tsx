@@ -39,6 +39,27 @@ const OpenGraph = ({ url }: { url: string }) => {
           <Card.Text>{op.description}</Card.Text>
         </Card.Body>
       </Card>
+      <Card>
+        <Card.Img variant="top" src={op.image} />
+        <Card.Body>
+          <Card.Title>{op.title}</Card.Title>
+          <Card.Text>{op.description}</Card.Text>
+        </Card.Body>
+      </Card>
+      <Card>
+        <Card.Img variant="top" src={op.image} />
+        <Card.Body>
+          <Card.Title>{op.title}</Card.Title>
+          <Card.Text>{op.description}</Card.Text>
+        </Card.Body>
+      </Card>
+      <Card>
+        <Card.Img variant="top" src={op.image} />
+        <Card.Body>
+          <Card.Title>{op.title}</Card.Title>
+          <Card.Text>{op.description}</Card.Text>
+        </Card.Body>
+      </Card>
     </OpenGraphWrapper>
   );
 };

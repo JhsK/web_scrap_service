@@ -46,16 +46,27 @@ export const PostRegister = styled.div`
 export const OpenGraphWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 
   .card {
     width: 250px;
     height: 250px;
     border: 1px solid rgba(0, 0, 0, 0.175);
+    cursor: pointer;
+    margin-bottom: 1.5rem;
 
     .card-img-top {
       object-fit: cover;
       height: 150px;
+    }
+
+    .card-title {
+      font-size: 16px;
+    }
+
+    .card-text {
+      font-size: 14px;
     }
   }
 `;
