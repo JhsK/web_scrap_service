@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Card } from 'react-bootstrap';
 
 export const ContentsWrapper = styled.div`
   width: 100%;
@@ -28,11 +29,33 @@ export const IntroWrapper = styled.div`
 export const PostRegister = styled.div`
   width: 100%;
   position: relative;
+  margin-bottom: 2rem;
+
+  .form-control {
+    padding-right: 3rem;
+  }
 
   .icon {
     cursor: pointer;
     position: absolute;
     top: 15%;
     right: 2%;
+  }
+`;
+
+export const OpenGraphWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .card {
+    width: 250px;
+    height: 250px;
+    border: 1px solid rgba(0, 0, 0, 0.175);
+
+    .card-img-top {
+      object-fit: cover;
+      height: 150px;
+    }
   }
 `;
