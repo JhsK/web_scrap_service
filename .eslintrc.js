@@ -84,6 +84,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     camelcase: 'off',
     'global-require': 'off',
+    'react/jsx-no-useless-fragment': 'off',
   },
   env: {
     es6: true,

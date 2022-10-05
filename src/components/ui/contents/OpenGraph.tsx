@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Card } from 'react-bootstrap';
-import { OpenGraphWrapper } from './style';
+import React, { useEffect, useState } from 'react';
+import { Card, Spinner } from 'react-bootstrap';
+import { OpenGraphWrapper, SpinnerWrapper } from './style';
 
 const OpenGraph = ({ url }: { url: string }) => {
+  const [loading, setLoading] = useState(true);
   const [op, setOp] = useState({
     title: '',
     image: '',
@@ -24,6 +25,7 @@ const OpenGraph = ({ url }: { url: string }) => {
           description: data.hybridGraph.description,
         }));
         console.log(data);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -31,36 +33,44 @@ const OpenGraph = ({ url }: { url: string }) => {
   }, []);
 
   return (
-    <OpenGraphWrapper>
-      <Card>
-        <Card.Img variant="top" src={op.image} />
-        <Card.Body>
-          <Card.Title>{op.title}</Card.Title>
-          <Card.Text>{op.description}</Card.Text>
-        </Card.Body>
-      </Card>
-      <Card>
-        <Card.Img variant="top" src={op.image} />
-        <Card.Body>
-          <Card.Title>{op.title}</Card.Title>
-          <Card.Text>{op.description}</Card.Text>
-        </Card.Body>
-      </Card>
-      <Card>
-        <Card.Img variant="top" src={op.image} />
-        <Card.Body>
-          <Card.Title>{op.title}</Card.Title>
-          <Card.Text>{op.description}</Card.Text>
-        </Card.Body>
-      </Card>
-      <Card>
-        <Card.Img variant="top" src={op.image} />
-        <Card.Body>
-          <Card.Title>{op.title}</Card.Title>
-          <Card.Text>{op.description}</Card.Text>
-        </Card.Body>
-      </Card>
-    </OpenGraphWrapper>
+    <>
+      {loading ? (
+        <SpinnerWrapper>
+          <Spinner animation="border" />
+        </SpinnerWrapper>
+      ) : (
+        <OpenGraphWrapper>
+          <Card>
+            <Card.Img variant="top" src={op.image} />
+            <Card.Body>
+              <Card.Title>{op.title}</Card.Title>
+              <Card.Text>{op.description}</Card.Text>
+            </Card.Body>
+          </Card>
+          <Card>
+            <Card.Img variant="top" src={op.image} />
+            <Card.Body>
+              <Card.Title>{op.title}</Card.Title>
+              <Card.Text>{op.description}</Card.Text>
+            </Card.Body>
+          </Card>
+          <Card>
+            <Card.Img variant="top" src={op.image} />
+            <Card.Body>
+              <Card.Title>{op.title}</Card.Title>
+              <Card.Text>{op.description}</Card.Text>
+            </Card.Body>
+          </Card>
+          <Card>
+            <Card.Img variant="top" src={op.image} />
+            <Card.Body>
+              <Card.Title>{op.title}</Card.Title>
+              <Card.Text>{op.description}</Card.Text>
+            </Card.Body>
+          </Card>
+        </OpenGraphWrapper>
+      )}
+    </>
   );
 };
 
