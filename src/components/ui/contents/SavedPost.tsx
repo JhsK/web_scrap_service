@@ -6,14 +6,16 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store';
 import { postAdd } from '../../../store/directory/directorySlice';
 import OpenGraph from './OpenGraph';
-import { ContentsWrapper, PostRegister } from './style';
+import { ContentsWrapper, OpenGraphWrapper, PostRegister } from './style';
 
 const SavedPost = () => {
   const { id } = useParams();
   const { search } = useLocation();
-  const { rootIndex } = queryString.parse(search);
+  const { rootIndex, subIndex } = queryString.parse(search);
 
-  const directory = useAppSelector((state) => state.directory[Number(rootIndex)]);
+  const directory = useAppSelector(
+    (state) => state.directory[Number(rootIndex)].subDirectory[Number(subIndex)]
+  );
   const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
 
@@ -26,14 +28,14 @@ const SavedPost = () => {
       return;
     }
 
-    let subIndex = -1;
-    directory.subDirectory.forEach((sub, index) => {
-      if (sub.id === id) {
-        subIndex = index;
-      }
-    });
+    // let subIndexA = -1;
+    // directory.subDirectory.forEach((sub, index) => {
+    //   if (sub.id === id) {
+    //     subIndexA = index;
+    //   }
+    // });
 
-    dispatch(postAdd({ rootIndex: Number(rootIndex), subIndex, post: value }));
+    dispatch(postAdd({ rootIndex: Number(rootIndex), subIndex: Number(subIndex), post: value }));
     setValue('');
   };
 
@@ -50,7 +52,13 @@ const SavedPost = () => {
           <MdSaveAlt />
         </div>
       </PostRegister>
-      <OpenGraph url="https://naver.com" />
+      <OpenGraph urls={directory.posts} />
+      {/* <OpenGraphWrapper>
+        <OpenGraph url="https://naver.com" />
+        <OpenGraph url="https://naver.com" />
+        <OpenGraph url="https://naver.com" />
+        <OpenGraph url="https://naver.com" />
+      </OpenGraphWrapper> */}
     </ContentsWrapper>
   );
 };

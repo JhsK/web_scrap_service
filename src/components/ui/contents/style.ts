@@ -48,6 +48,21 @@ export const OpenGraphWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+`;
+
+export const CardWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  a,
+  a:hover,
+  a:focus,
+  a:active {
+    text-decoration: none;
+    color: inherit;
+  }
 
   .card {
     width: 250px;

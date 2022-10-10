@@ -140,7 +140,7 @@ function Sidebar() {
                 root.subDirectory?.map((sub, subIndex) => (
                   <SubDirectory
                     key={sub.id}
-                    onClick={() => navigate(`/${sub.id}?rootIndex=${index}`)}
+                    onClick={() => navigate(`/${sub.id}?rootIndex=${index}&subIndex=${subIndex}`)}
                   >
                     <div className="directoryLeft">
                       <DirectoryIcon>
