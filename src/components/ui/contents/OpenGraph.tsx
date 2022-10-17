@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Buffer } from 'buffer';
 import { Card, Spinner } from 'react-bootstrap';
 import { CardWrapper, SpinnerWrapper } from './style';
 
@@ -24,21 +23,21 @@ const OpenGraph = ({ urls }: { urls: string[] }) => {
   //   ).then((res) => console.log(res));
   // }, []);
 
-  useEffect(() => {
-    (async () => {
-      const bufferUrl = Buffer.from(
-        `qwe6293@nate.com:${process.env.REACT_APP_OPEN_GRAPH_KEY}`
-      ).toString('base64');
-      const test = encodeURIComponent(urls[0]);
-      const { data } = await axios('https://api.urlmeta.org/?url=https://moin.im', {
-        headers: {
-          Authorization: `Basic ${bufferUrl}`,
-        },
-      });
+  // useEffect(() => {
+  //   (async () => {
+  //     const bufferUrl = Buffer.from(
+  //       `qwe6293@nate.com:${process.env.REACT_APP_OPEN_GRAPH_KEY}`
+  //     ).toString('base64');
+  //     const test = encodeURIComponent(urls[0]);
+  //     const { data } = await axios('https://api.urlmeta.org/?url=https://moin.im', {
+  //       headers: {
+  //         Authorization: `Basic ${bufferUrl}`,
+  //       },
+  //     });
 
-      console.log(data);
-    })();
-  });
+  //     console.log(data);
+  //   })();
+  // });
 
   // useEffect(() => {
   //   (async () => {
