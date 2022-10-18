@@ -3,83 +3,65 @@ import { useEffect, useState } from 'react';
 import { Card, Spinner } from 'react-bootstrap';
 import { CardWrapper, SpinnerWrapper } from './style';
 
+interface OpenGraphDTO {
+  charset: string;
+  favicon: string;
+  ogDescription: string;
+  ogImage: OpenGraphImage;
+  ogTitle: string;
+  ogType: string;
+  ogUrl: string;
+  requestUrl: string;
+  success: boolean;
+  twitterCard: string;
+  twitterDescription: string;
+  twitterImage: OpenGraphImage;
+  twitterTitle: string;
+}
+
+interface OpenGraphImage {
+  height: number | null;
+  width: number | null;
+  type: string;
+  url: string;
+}
+
+axios.defaults.withCredentials = true;
+
 const OpenGraph = ({ urls }: { urls: string[] }) => {
   const [loading, setLoading] = useState(true);
-  const [op, setOp] = useState({
-    title: '',
-    image: '',
-    description: '',
-  });
+  const [op, setOp] = useState<OpenGraphDTO[]>([]);
 
-  // useEffect(() => {
-  //   const encodeUrl = urls.map((url) => encodeURIComponent(url));
-  //   console.log('!!');
-  //   Promise.all(
-  //     encodeUrl.map((url) =>
-  //       axios(
-  //         `https://opengraph.io/api/1.1/site/${url}?accept_lang=auto&app_id=${process.env.REACT_APP_OPEN_GRAPH_ID}`
-  //       )
-  //     )
-  //   ).then((res) => console.log(res));
-  // }, []);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const bufferUrl = Buffer.from(
-  //       `qwe6293@nate.com:${process.env.REACT_APP_OPEN_GRAPH_KEY}`
-  //     ).toString('base64');
-  //     const test = encodeURIComponent(urls[0]);
-  //     const { data } = await axios('https://api.urlmeta.org/?url=https://moin.im', {
-  //       headers: {
-  //         Authorization: `Basic ${bufferUrl}`,
-  //       },
-  //     });
-
-  //     console.log(data);
-  //   })();
-  // });
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const encodeUrl = encodeURIComponent(urls[0]);
-  //       const { data } = await axios(
-  //         `https://opengraph.io/api/1.1/site/${encodeUrl}?accept_lang=auto&app_id=${process.env.REACT_APP_OPEN_GRAPH_ID}`
-  //       );
-  //       console.log(data);
-  //       setOp((prev) => ({
-  //         ...prev,
-  //         title: data.hybridGraph.title,
-  //         image: data.hybridGraph.image,
-  //         description: data.hybridGraph.description,
-  //       }));
-  //       console.log(data);
-  //       setLoading(false);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.post('http://localhost:3001/url', { urls });
+      console.log(data);
+      setLoading(false);
+      setOp([...data]);
+    })();
+  }, []);
 
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <SpinnerWrapper>
           <Spinner animation="border" />
         </SpinnerWrapper>
       ) : (
         <CardWrapper>
-          <a href={url} target="_blank" rel="noreferrer">
-            <Card>
-              <Card.Img variant="top" src={op.image} />
-              <Card.Body>
-                <Card.Title>{op.title}</Card.Title>
-                <Card.Text>{op.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </a>
+          {op.map((url) => (
+            <a href={url.ogUrl} key={url.ogUrl} target="_blank" rel="noreferrer">
+              <Card>
+                <Card.Img variant="top" src={url.ogImage.url} />
+                <Card.Body>
+                  <Card.Title>{url.ogTitle}</Card.Title>
+                  <Card.Text>{url.ogDescription}</Card.Text>
+                </Card.Body>
+              </Card>
+            </a>
+          ))}
         </CardWrapper>
-      )} */}
+      )}
     </>
   );
 };
