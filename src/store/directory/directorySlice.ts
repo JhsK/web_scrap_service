@@ -32,8 +32,6 @@ const initialState: () => Directory = () => {
   ];
 };
 
-console.log(initialState());
-
 export const directorySlice = createSlice({
   name: 'directory',
   initialState,
@@ -66,6 +64,8 @@ export const directorySlice = createSlice({
         action.payload.post
       );
     },
+
+    // removeUrlCard: (state, action: )
   },
 });
 

@@ -28,13 +28,6 @@ const SavedPost = () => {
       return;
     }
 
-    // let subIndexA = -1;
-    // directory.subDirectory.forEach((sub, index) => {
-    //   if (sub.id === id) {
-    //     subIndexA = index;
-    //   }
-    // });
-
     dispatch(postAdd({ rootIndex: Number(rootIndex), subIndex: Number(subIndex), post: value }));
     setValue('');
   };
@@ -52,13 +45,7 @@ const SavedPost = () => {
           <MdSaveAlt />
         </div>
       </PostRegister>
-      <OpenGraph urls={directory.posts} />
-      {/* <OpenGraphWrapper>
-        <OpenGraph url="https://naver.com" />
-        <OpenGraph url="https://naver.com" />
-        <OpenGraph url="https://naver.com" />
-        <OpenGraph url="https://naver.com" />
-      </OpenGraphWrapper> */}
+      <OpenGraph directory={directory} />
     </ContentsWrapper>
   );
 };

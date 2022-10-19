@@ -65,6 +65,7 @@ export const CardWrapper = styled.div`
   }
 
   .card {
+    position: relative;
     width: 250px;
     height: 250px;
     border: 1px solid rgba(0, 0, 0, 0.175);
@@ -84,6 +85,12 @@ export const CardWrapper = styled.div`
       font-size: 14px;
     }
   }
+`;
+
+export const CardCloseIcon = styled.div`
+  position: absolute;
+  top: 1%;
+  right: 3%;
 `;
 
 export const SpinnerWrapper = styled.div`

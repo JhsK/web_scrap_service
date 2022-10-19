@@ -85,6 +85,7 @@ module.exports = {
     camelcase: 'off',
     'global-require': 'off',
     'react/jsx-no-useless-fragment': 'off',
+    'react/no-unused-prop-types': 'off',
   },
   env: {
     es6: true,
