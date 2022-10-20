@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Card, Spinner } from 'react-bootstrap';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { CardCloseIcon, CardWrapper, SpinnerWrapper } from './style';
@@ -39,6 +39,7 @@ axios.defaults.withCredentials = true;
 const OpenGraph = ({ directory }: any) => {
   const [loading, setLoading] = useState(true);
   const [op, setOp] = useState<OpenGraphDTO[]>([]);
+  const testRef = useRef<HTMLDivElement>(null);
   console.log(directory);
   useEffect(() => {
     (async () => {
@@ -49,7 +50,7 @@ const OpenGraph = ({ directory }: any) => {
   }, []);
 
   const onClickRemoveUrlCard = (index: number) => {};
-
+  console.log(testRef.current?.offsetWidth);
   return (
     <>
       {loading ? (
@@ -60,7 +61,7 @@ const OpenGraph = ({ directory }: any) => {
         <CardWrapper>
           {op.map((url) => (
             <a href={url.ogUrl} key={url.ogUrl} target="_blank" rel="noreferrer">
-              <Card>
+              <Card ref={testRef}>
                 <CardCloseIcon
                   onClick={() => onClickRemoveUrlCard(directory.posts.indexOf(url.ogUrl))}
                 >
@@ -69,7 +70,7 @@ const OpenGraph = ({ directory }: any) => {
                 <Card.Img variant="top" src={url.ogImage.url} />
                 <Card.Body>
                   <Card.Title>{`${url.ogTitle.slice(0, 20)}...`}</Card.Title>
-                  <Card.Text>{`${url.ogDescription.slice(0, 45)}...`}</Card.Text>
+                  <Card.Text>{url.ogDescription}</Card.Text>
                 </Card.Body>
               </Card>
             </a>
