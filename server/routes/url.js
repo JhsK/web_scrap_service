@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const ogs = require('open-graph-scraper');
+const uuid = require('uuid');
 
 const router = express.Router();
 
@@ -12,7 +13,8 @@ router.post('/', async (req, res) => {
         new Promise((resolve, reject) => {
           const options = { url };
           ogs(options, (error, results, response) => {
-            console.log('results:', results);
+            const resultData = results;
+            resultData.id = uuid.v4();
             openResult.push(results);
             resolve(results);
           });
