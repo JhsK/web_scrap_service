@@ -45,7 +45,7 @@ const SavedPost = () => {
           <MdSaveAlt />
         </div>
       </PostRegister>
-      <OpenGraph directory={directory} />
+      <OpenGraph directory={directory} rootIndex={Number(rootIndex)} subIndex={Number(subIndex)} />
     </ContentsWrapper>
   );
 };

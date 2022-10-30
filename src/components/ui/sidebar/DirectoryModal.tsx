@@ -9,13 +9,9 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { ErrorText } from './style';
 import { DirectoryInput, ModalShow } from './types';
-import {
-  DirecotryObjState,
-  rootAdd,
-  subAdd,
-  SubDirectoryObj,
-} from '../../../store/directory/directorySlice';
+import { rootAdd, subAdd } from '../../../store/directory/directorySlice';
 import { useAppDispatch } from '../../../store';
+import { DirecotryObjState, SubDirectoryObj } from '../../../store/directory/type';
 
 interface RootModalProps {
   modal: ModalShow;
