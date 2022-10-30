@@ -53,8 +53,8 @@ export const OpenGraphWrapper = styled.div`
 export const CardWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
+  gap: 1rem;
 
   a,
   a:hover,
@@ -66,8 +66,8 @@ export const CardWrapper = styled.div`
 
   .card {
     position: relative;
-    width: 250px;
-    height: 250px;
+    width: 32%;
+    height: 260px;
     border: 1px solid rgba(0, 0, 0, 0.175);
     cursor: pointer;
     margin-bottom: 1.5rem;

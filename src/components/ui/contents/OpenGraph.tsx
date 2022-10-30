@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Spinner } from 'react-bootstrap';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import { removeUrlCard } from '../../../store/directory/directorySlice';
 import { CardCloseIcon, CardWrapper, SpinnerWrapper } from './style';
 
 interface OpenGraphDTO {
+  id: number;
   charset: string;
   favicon: string;
   ogDescription: string;
@@ -48,10 +49,9 @@ const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
       setLoading(false);
       setOp([...data]);
     })();
-  }, []);
+  }, [directory]);
 
   const onClickRemoveUrlCard = (index: number) => {
-    console.log(index);
     dispatch(removeUrlCard({ rootIndex, subIndex, postIndex: index }));
   };
 
@@ -65,13 +65,7 @@ const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
         <CardWrapper>
           {op.map((url) => (
             <Card key={url.ogUrl || url.requestUrl}>
-              <CardCloseIcon
-                onClick={() =>
-                  onClickRemoveUrlCard(
-                    directory.posts.indexOf(encodeURI(url.ogUrl || url.requestUrl))
-                  )
-                }
-              >
+              <CardCloseIcon onClick={() => onClickRemoveUrlCard(url.id)}>
                 <IoIosCloseCircleOutline size="20px" color="#dadde2" />
               </CardCloseIcon>
               <Card.Img variant="top" src={url.ogImage.url} />
