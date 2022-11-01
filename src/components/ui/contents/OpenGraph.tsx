@@ -47,7 +47,8 @@ const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
     (async () => {
       const { data } = await axios.post('http://localhost:3001/url', { urls: directory.posts });
       setLoading(false);
-      setOp([...data]);
+      const descData = data.sort((a: OpenGraphDTO, b: OpenGraphDTO) => a.id - b.id);
+      setOp([...descData]);
     })();
   }, [directory]);
 
@@ -72,7 +73,7 @@ const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
               <a href={url.ogUrl || url.requestUrl} target="_blank" rel="noreferrer">
                 <Card.Body>
                   <Card.Title>{`${url.ogTitle.slice(0, 20)}...`}</Card.Title>
-                  <Card.Text>{`${url.ogDescription.slice(0, 45)}...`}</Card.Text>
+                  <Card.Text>{`${url.ogDescription.slice(0, 50)}...`}</Card.Text>
                 </Card.Body>
               </a>
             </Card>
