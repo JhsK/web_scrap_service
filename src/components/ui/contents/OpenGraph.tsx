@@ -4,6 +4,7 @@ import { Card, Spinner } from 'react-bootstrap';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import { removeUrlCard } from '../../../store/directory/directorySlice';
+import ToastComponent from '../toast';
 import { CardCloseIcon, CardWrapper, SpinnerWrapper } from './style';
 
 interface OpenGraphDTO {
@@ -78,6 +79,7 @@ const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
               </a>
             </Card>
           ))}
+          <ToastComponent />
         </CardWrapper>
       )}
     </>

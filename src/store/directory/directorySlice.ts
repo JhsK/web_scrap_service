@@ -6,6 +6,7 @@ import {
   RemoveUrlCardPayload,
   RootRenamePayload,
   subAddPayload,
+  SubRemovePayload,
   SubRenamePayload,
 } from './type';
 
@@ -45,6 +46,11 @@ export const directorySlice = createSlice({
         action.payload.name;
     },
 
+    subRemove: (state, action: PayloadAction<SubRemovePayload>) => {
+      const { rootIndex, subIndex } = action.payload;
+      state[rootIndex].subDirectory.splice(subIndex);
+    },
+
     postAdd: (state, action: PayloadAction<PostAddPayload>) => {
       state[action.payload.rootIndex].subDirectory[action.payload.subIndex].posts.push(
         action.payload.post
@@ -59,7 +65,7 @@ export const directorySlice = createSlice({
   },
 });
 
-export const { rootAdd, rootRename, subAdd, subRename, postAdd, removeUrlCard } =
+export const { rootAdd, rootRename, subAdd, subRename, subRemove, postAdd, removeUrlCard } =
   directorySlice.actions;
 export const selectDirectory = (state: Directory) => state;
 export default directorySlice.reducer;

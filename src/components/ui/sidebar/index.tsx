@@ -4,9 +4,10 @@ import { BiPencil } from 'react-icons/bi';
 
 import { useForm } from 'react-hook-form';
 import { BsDot, BsFillCaretDownFill, BsFillCaretRightFill } from 'react-icons/bs';
+import { IoIosRemove } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store';
-import { rootRename, subRename } from '../../../store/directory/directorySlice';
+import { rootRename, subRemove, subRename } from '../../../store/directory/directorySlice';
 import DirectoryModal from './DirectoryModal';
 import {
   DirectoryIcon,
@@ -79,6 +80,15 @@ function Sidebar() {
   const onClickSubAddModal = (index: number) => {
     setRootIndex(index);
     setModalShow((prev) => ({ ...prev, show: true, type: 'sub' }));
+  };
+
+  const onClickSubRemove = ({ index, subIndex }: { index: number; subIndex: number }) => {
+    const confirm = window.confirm('정말 서브 디렉터리를 삭제하시겠습니까?');
+
+    if (confirm) {
+      navigate('/');
+      dispatch(subRemove({ rootIndex: index, subIndex }));
+    }
   };
 
   return (
@@ -160,8 +170,8 @@ function Sidebar() {
                       <div onClick={() => setSubRenameState(sub.id)}>
                         <BiPencil />
                       </div>
-                      <div onClick={() => onClickSubAddModal(index)}>
-                        <AiOutlinePlus />
+                      <div onClick={() => onClickSubRemove({ index, subIndex })}>
+                        <IoIosRemove />
                       </div>
                     </div>
                   </SubDirectory>

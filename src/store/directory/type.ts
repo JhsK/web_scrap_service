@@ -29,6 +29,10 @@ export interface SubRenamePayload {
   name: string;
   subIndex: number;
 }
+export interface SubRemovePayload {
+  rootIndex: number;
+  subIndex: number;
+}
 
 export interface PostAddPayload {
   rootIndex: number;
