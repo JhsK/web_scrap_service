@@ -12,21 +12,25 @@ const urlRouter = require('./routes/url');
 dotenv.config();
 const app = express();
 
-app.use(morgan('combined'));
-app.use(hpp());
-app.use(helmet());
-app.use({
-  origin: 'https://effulgent-licorice-f9f730.netlify.app/',
-  credentials: true,
-});
-
-// app.use(morgan('dev'));
-// app.use(
-//   cors({
-//     origin: 'http://localhost:3000',
-//     credentials: true,
-//   })
-// );
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('combined'));
+  app.use(hpp());
+  app.use(helmet());
+  app.use(
+    cors({
+      origin: 'https://scrapsk.netlify.app',
+      credentials: true,
+    })
+  );
+} else {
+  app.use(morgan('dev'));
+  app.use(
+    cors({
+      origin: 'http://localhost:3000',
+      credentials: true,
+    })
+  );
+}
 
 // app.use('/', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
@@ -38,6 +42,6 @@ app.get('/', (req, res) => {
 
 app.use('/url', urlRouter);
 
-app.listen(process.env.PORT, () => {
+app.listen(80, () => {
   console.log('서버 실행 중', process.env.PORT);
 });
