@@ -46,7 +46,7 @@ const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.post('http://localhost:3001/url', { urls: directory.posts });
+      const { data } = await axios.post('http://34.127.11.238/url', { urls: directory.posts });
       setLoading(false);
       const descData = data.sort((a: OpenGraphDTO, b: OpenGraphDTO) => a.id - b.id);
       setOp([...descData]);
