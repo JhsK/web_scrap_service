@@ -12,34 +12,21 @@ const urlRouter = require('./routes/url');
 dotenv.config();
 const app = express();
 
-app.use(morgan('dev'));
-app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  })
-);
+app.use(morgan('combined'));
+app.use(hpp());
+app.use(helmet());
+app.use({
+  origin: 'https://effulgent-licorice-f9f730.netlify.app/',
+  credentials: true,
+});
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.set('trust proxy', 1);
-//   app.use(morgan('combined'));
-//   app.use(hpp());
-//   app.use(helmet());
-//   app.use(
-//     cors({
-//       origin: 'https://sungkyu.info',
-//       credentials: true,
-//     })
-//   );
-// } else {
-//   app.use(morgan('dev'));
-//   app.use(
-//     cors({
-//       origin: 'http://localhost:3000',
-//       credentials: true,
-//     })
-//   );
-// }
+// app.use(morgan('dev'));
+// app.use(
+//   cors({
+//     origin: 'http://localhost:3000',
+//     credentials: true,
+//   })
+// );
 
 // app.use('/', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
