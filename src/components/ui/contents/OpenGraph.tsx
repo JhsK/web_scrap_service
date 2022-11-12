@@ -37,6 +37,8 @@ interface OpenGraphProps {
   subIndex: number;
 }
 
+axios.defaults.baseURL = 'https://srapsk.ga/';
+// axios.defaults.baseURL = 'http://localhost:3001/';
 axios.defaults.withCredentials = true;
 
 const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
@@ -45,12 +47,14 @@ const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.post('http://34.127.11.238/url', { urls: directory.posts });
-      setLoading(false);
-      const descData = data.sort((a: OpenGraphDTO, b: OpenGraphDTO) => a.id - b.id);
-      setOp([...descData]);
-    })();
+    if (directory.posts.length > 0) {
+      (async () => {
+        const { data } = await axios.post('/url', { urls: directory.posts });
+        setLoading(false);
+        const descData = data.sort((a: OpenGraphDTO, b: OpenGraphDTO) => a.id - b.id);
+        setOp([...descData]);
+      })();
+    }
   }, [directory]);
 
   const onClickRemoveUrlCard = (index: number) => {
