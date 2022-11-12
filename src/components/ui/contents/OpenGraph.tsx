@@ -4,7 +4,6 @@ import { Card, Spinner } from 'react-bootstrap';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import { removeUrlCard } from '../../../store/directory/directorySlice';
-import ToastComponent from '../toast';
 import { CardCloseIcon, CardWrapper, SpinnerWrapper } from './style';
 
 interface OpenGraphDTO {
@@ -37,8 +36,7 @@ interface OpenGraphProps {
   subIndex: number;
 }
 
-axios.defaults.baseURL = 'https://srapsk.ga/';
-// axios.defaults.baseURL = 'http://localhost:3001/';
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 axios.defaults.withCredentials = true;
 
 const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
@@ -83,7 +81,6 @@ const OpenGraph = ({ directory, rootIndex, subIndex }: OpenGraphProps) => {
               </a>
             </Card>
           ))}
-          <ToastComponent />
         </CardWrapper>
       )}
     </>

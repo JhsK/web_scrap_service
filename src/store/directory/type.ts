@@ -18,6 +18,9 @@ export interface RootRenamePayload {
   index: number;
   name: string;
 }
+export interface RootRemovePayload {
+  index: number;
+}
 
 export interface subAddPayload {
   data: SubDirectoryObj;

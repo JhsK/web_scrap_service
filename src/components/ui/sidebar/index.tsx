@@ -7,7 +7,12 @@ import { BsDot, BsFillCaretDownFill, BsFillCaretRightFill } from 'react-icons/bs
 import { IoIosRemove } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store';
-import { rootRename, subRemove, subRename } from '../../../store/directory/directorySlice';
+import {
+  rootRemove,
+  rootRename,
+  subRemove,
+  subRename,
+} from '../../../store/directory/directorySlice';
 import DirectoryModal from './DirectoryModal';
 import {
   DirectoryIcon,
@@ -82,6 +87,15 @@ function Sidebar() {
     setModalShow((prev) => ({ ...prev, show: true, type: 'sub' }));
   };
 
+  const onClickRootRemove = (index: number) => {
+    const confirm = window.confirm('정말 루트 디렉터리를 삭제하시겠습니까?');
+
+    if (confirm) {
+      navigate('/');
+      dispatch(rootRemove({ index }));
+    }
+  };
+
   const onClickSubRemove = ({ index, subIndex }: { index: number; subIndex: number }) => {
     const confirm = window.confirm('정말 서브 디렉터리를 삭제하시겠습니까?');
 
@@ -143,6 +157,9 @@ function Sidebar() {
                   </div>
                   <div onClick={() => onClickSubAddModal(index)}>
                     <AiOutlinePlus />
+                  </div>
+                  <div onClick={() => onClickRootRemove(index)}>
+                    <IoIosRemove />
                   </div>
                 </div>
               </RootDirectory>

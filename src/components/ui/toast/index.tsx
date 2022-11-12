@@ -9,10 +9,16 @@ const ToastWrapper = styled.div`
   z-index: 9999;
 `;
 
-const ToastComponent = () => (
+interface ToastComponentProps {
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  content: string;
+}
+
+const ToastComponent = ({ show, setShow, content }: ToastComponentProps) => (
   <ToastWrapper>
-    <Toast show autohide delay={2000}>
-      <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+    <Toast onClose={() => setShow(false)} show={show} autohide delay={2000}>
+      <Toast.Body>{content}</Toast.Body>
     </Toast>
   </ToastWrapper>
 );

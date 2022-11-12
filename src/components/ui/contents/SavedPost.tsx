@@ -5,8 +5,9 @@ import { MdSaveAlt } from 'react-icons/md';
 import { useLocation, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store';
 import { postAdd } from '../../../store/directory/directorySlice';
+import ToastComponent from '../toast';
 import OpenGraph from './OpenGraph';
-import { ContentsWrapper, OpenGraphWrapper, PostRegister } from './style';
+import { ContentsWrapper, PostRegister } from './style';
 
 const SavedPost = () => {
   const { id } = useParams();
@@ -18,6 +19,8 @@ const SavedPost = () => {
   );
   const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
+  const [toastShow, setToastShow] = useState(false);
+  const [toastContent, setToastContnet] = useState('');
 
   const onChangeValue = (e: React.ChangeEvent<any>) => {
     setValue(e.target.value);
@@ -30,6 +33,8 @@ const SavedPost = () => {
 
     dispatch(postAdd({ rootIndex: Number(rootIndex), subIndex: Number(subIndex), post: value }));
     setValue('');
+    setToastContnet('저장되었습니다.');
+    setToastShow(true);
   };
 
   return (
@@ -46,6 +51,7 @@ const SavedPost = () => {
         </div>
       </PostRegister>
       <OpenGraph directory={directory} rootIndex={Number(rootIndex)} subIndex={Number(subIndex)} />
+      <ToastComponent show={toastShow} content={toastContent} setShow={setToastShow} />
     </ContentsWrapper>
   );
 };
