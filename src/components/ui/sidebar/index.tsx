@@ -32,11 +32,16 @@ function Sidebar() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const [userName, setUserName] = useState('');
   const [toggle, setToggle] = useState<number[]>([]);
   const [rootRenameState, setRootRenameState] = useState<number[]>([]);
   const [subRenameState, setSubRenameState] = useState('');
   const [modalShow, setModalShow] = useState<ModalShow>({ show: false, type: 'root' });
   const [rootIndex, setRootIndex] = useState(-1); // 모달을 이용한 디렉터리 생성 시 사용되는 현재 루트 인텍스 상태값
+
+  useEffect(() => {
+    setUserName(localStorage.getItem('userName') as string);
+  }, []);
 
   useEffect(() => {
     try {
@@ -118,7 +123,7 @@ function Sidebar() {
       />
       <SidebarWrapper>
         <UserNameWrapper>
-          <span>테스트님</span>
+          <span>{userName}</span>
           <div className="icon">
             <BiPencil />
           </div>
