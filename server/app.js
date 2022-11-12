@@ -42,6 +42,6 @@ app.get('/', (req, res) => {
 
 app.use('/url', urlRouter);
 
-app.listen(80, () => {
+app.listen(3065, () => {
   console.log('서버 실행 중', process.env.PORT);
 });
