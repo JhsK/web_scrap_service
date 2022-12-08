@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ContentsWrapper, IntroWrapper, PostRegister } from './style';
+import React from 'react';
+import { ContentsWrapper, IntroWrapper } from './style';
 
 const Intro = () => (
   <ContentsWrapper>
