@@ -110,6 +110,16 @@ function Sidebar() {
     }
   };
 
+  const onClickSetUserName = () => {
+    // eslint-disable-next-line no-alert
+    const inputUserName = window.prompt(
+      '사용자명을 입력해주세요! 이후 변경할 수 없습니다.'
+    ) as string;
+
+    localStorage.setItem('userName', inputUserName);
+    setUserName(inputUserName);
+  };
+
   return (
     <>
       <DirectoryModal
@@ -123,8 +133,8 @@ function Sidebar() {
       />
       <SidebarWrapper>
         <UserNameWrapper>
-          <span>{userName}</span>
-          <div className="icon">
+          <span>{userName || '게스트'}</span>
+          <div className="icon" onClick={onClickSetUserName}>
             <BiPencil />
           </div>
         </UserNameWrapper>
